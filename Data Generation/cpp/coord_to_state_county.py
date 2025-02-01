@@ -3,7 +3,7 @@ import pandas as pd
 import time
 
 # Replace with your actual Geoapify API key
-API_KEY = "d2756a36aebf47c5b637661ea358684a"
+API_KEY = ""
 BASE_URL = "https://api.geoapify.com/v1/geocode/reverse"
 
 csv_path = "CPP_Data.csv"

@@ -1,10 +1,13 @@
 import pandas as pd
 import re
 
+# This file gets the objectives of brownfield data from 3 different files, deletes irrelevant columns, and merges the data to create a single file
+
 df1 = pd.read_csv('partial_analysis.csv')
 df2 = pd.read_csv('popWeightedSviAndSentiment.csv')
 df3 = pd.read_csv('distanceLayers.csv')
 
+# Irrelevant columns of proximity objectives file
 indices_to_delete = [1,2,4,5,7,9,10]
 df3.drop(df3.columns[indices_to_delete], axis=1, inplace=True)
 

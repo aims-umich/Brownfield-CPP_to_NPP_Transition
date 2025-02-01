@@ -17,6 +17,7 @@ df_filtered = df_filtered.reset_index(drop=True)
 
 df_nometric = df_filtered.iloc[:, :-1]
 
+# The functions described here uses the threshold values and linear scaling for the mileage described in the proximity section of the STAND tool.
 def process_pop_column(df, col):
     df.iloc[:, col] = np.where(df.iloc[:, col] < 4, 0, df.iloc[:, col])
     max_val = df.iloc[:, col].max()
@@ -46,6 +47,7 @@ def process_road_colum(df, col):
             df.iloc[:, col])
         return df
 
+# The coordinate columns are rounded to 2 decimal places and duplicate coordinates are removed.
 def round_and_remove_duplicates(df, decimals=2):
     # df_rounded = df.copy()
     df.iloc[:, 1:3] = df.iloc[:, 1:3].round(decimals)
@@ -70,6 +72,8 @@ df_bff_cp.to_csv('BF_CPP_DATA.csv', index=False)
 df_bff_cp.iloc[:,0].to_csv('registry_ids.csv', index=False)
 
 data = df_bff_cp
+# The negative objectives in the BF_CPP_DATA.csv file have been negated in the next lines. 
+# These are state nuclear restrictions, pop_weight_svi, state_const_labor_wage, protected_lands, count_hazard_facs 
 negative_columns = [5, 9, 11, 12, 13]
 data = process_pop_column(data, 21)
 data = process_ret_colum(data, 22)
@@ -79,19 +83,26 @@ data = negate_columns(data, negative_columns)
 
 data = minmax_scale_columns(data, start=5) 
 
+# Only the objectives are kept for the next step
 data_array = data.iloc[:, 5:].values
 
 num_locs = len(data_array)
 num_obj = len(data_array[0])
 
+# myFirstPareto function takes an array of objectives, takes a combination for this array, and calculates the first (best) pareto front for this combination of objectives.
+# Partial function has been used for creating the function which will be used in parallel computation. 
 comb_to_pareto = partial(myFirstPareto, data_array)
 
 ranks=[i for i in range(num_locs)]
 out_data_indices=[i for i in range(0,num_obj)]
 
+# The files to count the non-normalized site observation rates and objective contributions 
 w_file_name="recorder.txt"
 obj_contr_file="obj_contributions.txt"
 
+# Cores for parallel combination, and batch size. The batch size is required since calculation of a combination size in a single batch is not possible. 
+# There are over 700k combinations for C(22,11). The program holds a 16k x 22 matrix for 700k different calculations, resulting in memory overflow. 
+# This computation is separated to batches. 
 ncores = 360
 batch_size = ncores
 for i in range(0, 22):  # Iterating over combination sizes

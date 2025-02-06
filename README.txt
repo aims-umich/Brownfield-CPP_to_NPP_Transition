@@ -14,4 +14,12 @@ The preprocessing (1), processing (2), postprocessing (3) and neural network tra
 
 3) The Data Visualization takes recorder.txt and obj_contributions.txt files. It uses "recorder_reader.ipynb" file to read the recorder file. This file normalizes the file for each combination length, creates the siting metric, and creates the 3D plot in the paper. Then after the best site is found, "2d_site_plotter.ipynb" creates the 2D plot for the best site result. "process_obj_contributions.py" creates the summed normalized objective contributions. "show_bar_chart_for_importances.py" plots the objective contributions of best 6 sites. "create_filled_xy_data.ipynb" reverses the coordinate rounding. "create_xy_data_with_results.py" creates the new, complete dataset with objectives and processing results. "get_final_res_for_mapping.py" gets the siting metric and coordinates for the top results. "mapper.py" creates the map for the best sites. "plot_computation_time.ipynb" prints and plots the computation times. "get_variance_change.py" plots the variance change w.r.t. combination length.
 
-4) Model Training folder uses "Complete_BF_CPP_XY_Data.csv" file. This folder includes the ConcNN and LUT-NN scripts. Model_grid_tuning folder has the grid hyperparameter tuning script "Model_Grid_Tuner.py" for two cases, first layer of ConcNN, and LUT-NN and second layer of ConcNN. "Interpolator_only.ipynb" file shows the structure of the interpolator used in LUT-NN model. "ConcNN_Training_2000_ep_256_bs" file shows the codes used to generate the ConcNN model described in the paper. "LUT-NN_training_1000_ep_16_bs" file shows the codes used to generate the LUT-NN model described in the paper.
+4) Model Training folder uses "Complete_BF_CPP_XY_Data.csv" file. This folder includes the ConcNN and LUT-NN scripts. The grid tuning directory and model training directory has separate virtual environments.
+
+4.1) Model_grid_tuning folder has the grid hyperparameter tuning script "Model_Grid_Tuner.py" for two cases, first layer of ConcNN, and LUT-NN and second layer of ConcNN. 
+
+4.2) "Interpolator_only.ipynb" file shows the structure of the interpolator used in LUT-NN model. 
+
+4.3) "ConcNN_Training_2000_ep_256_bs" file shows the codes used to generate the ConcNN model described in the paper. Its model is given as "Model_ConcNN_First_Part_2000_256.keras". The first part of the model has been trained in "ConcNN_First_Part_Metrics.ipynb" for comparison with the interpolation, and its model is given in "Model_ConcNN_First_Part_2000_256.keras".
+
+4.4) "LUT-NN_training_1000_ep_16_bs" file shows the codes used to generate the LUT-NN model described in the paper. Its model is given as "Model_LUT-NN_1000_16.keras".

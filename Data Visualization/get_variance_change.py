@@ -51,7 +51,7 @@ if read_list is not None:
     fig, ax = plt.subplots()
     ax.plot(x, var_res)
     ax.set_xlabel("Combination Length (s)", fontname='Times New Roman', fontsize=12)
-    ax.set_ylabel("Total Variance of $\overrightarrow{\mathrm{NR}}$ in Selected Combination Length", fontname='Times New Roman', fontsize=12)
+    ax.set_ylabel("Total Variance of $\widehat{\mathrm{NR}}$ in Selected Combination Length", fontname='Times New Roman', fontsize=12)
     # ax.set_title("Variance Analysis", fontname='Times New Roman', fontsize=12)
     
     # Set font for tick labels

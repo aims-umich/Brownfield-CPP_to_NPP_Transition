@@ -22,7 +22,7 @@ bf_cpp_xy_df = pd.read_csv('BF_CPP_XY_Data.csv')
 bf_cpp_xy_df_sorted = bf_cpp_xy_df.sort_values(by='siting_metric', ascending=False)
 
 # Select top 5 rows and objective contribution columns
-data = bf_cpp_xy_df_sorted.iloc[:5, 27:49].to_numpy()
+data = bf_cpp_xy_df_sorted.iloc[:6, 27:49].to_numpy()
 
 
 # Color mapping for identifiers (IDs)
@@ -31,14 +31,15 @@ color_mapping = {
     'C2712': '#ff7f0e',        # Orange
     'C2367': '#2ca02c',        # Green
     'C8042': '#d62728',        # Red
-    '110038759572': '#9467bd'  # Purple
+    '110038759572': '#9467bd', # Purple
+    '110015334440': '#8c564b'  # Brown
 }
 
 # Assign each ID to a color
 colors = list(color_mapping.values())
 
 # Bar positions (based on characteristics)
-bar_width = 0.15
+bar_width = 0.11
 index = np.arange(len(characteristics))
 
 # Create a figure and axis
@@ -49,10 +50,9 @@ for i, color in enumerate(colors):
     ax.barh(index + i * bar_width, data[i], bar_width, label=f"ID {list(color_mapping.keys())[i]}", color=color)
 
 # Customize the chart
-ax.set_xlabel('Normalized Summed Objective Contribution ($\overrightarrow{\mathrm{SC}}$)', fontname='Times New Roman', fontsize=14)
+ax.set_xlabel('Normalized Summed Objective Contribution ($\widehat{\mathrm{SC}}$)', fontname='Times New Roman', fontsize=14)
 ax.set_yticks(index + bar_width * 2)
 ax.set_yticklabels(characteristics, fontname='Times New Roman')
-ax.set_title('Characteristic Values for Different IDs', fontname='Times New Roman')
 
 # Set x and y ticks font to Times New Roman
 ax.tick_params(axis='x', labelsize=12, labelcolor='black', labelrotation=0, width=1, direction='in', length=6)

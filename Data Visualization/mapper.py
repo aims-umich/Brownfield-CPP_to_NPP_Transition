@@ -66,7 +66,7 @@ for i in range(len(registry_ids)):
     sc = m.scatter(x, y, c=siting_metrics[i], cmap=cmap, norm=norm, s=80, marker=marker, zorder=4, alpha=0.8)
 
 # Add a colorbar with adjusted size
-plt.colorbar(sc, label='Siting Metric', fraction=0.025, pad=0.04)
+plt.colorbar(sc, label='Siting Metric ($\overrightarrow{\mathbb{M}}$)', fraction=0.025, pad=0.04)
 
 # Create custom legend with gray filling
 legend_elements = [Line2D([0], [0], marker='s', color='w', markerfacecolor='gray', markersize=10, label='CPP'),
